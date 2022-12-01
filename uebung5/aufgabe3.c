@@ -10,6 +10,9 @@ int main() {
     printf("Please type in the max width of the triangle: ");
     scanf(" %d", &maxWidth);
 
+    // change output text color to green
+    printf("\033[0;32m");
+
     while (currentWidth <= maxWidth) {
         currentWhiteSpaceWidth = getLeadingAndTrailingSpaceWidth(maxWidth, currentWidth);
         for (int i = 0; i < currentWhiteSpaceWidth; i++) {
