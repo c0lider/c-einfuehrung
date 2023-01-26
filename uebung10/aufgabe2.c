@@ -79,5 +79,9 @@ int main() {
     free(zweitesArray);
     free(gesamtArray);
 
+    erstesArray = NULL;
+    zweitesArray = NULL;
+    gesamtArray = NULL;
+
     return 0;
 }

@@ -38,4 +38,7 @@ int main() {
 
     free(firstVec);
     free(secondVec);
+
+    firstVec = NULL;
+    secondVec = NULL;
 }

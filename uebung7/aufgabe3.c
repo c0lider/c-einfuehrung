@@ -30,6 +30,7 @@ int main() {
     printf("\nYour input consists of %d words.\n", counter);
 
     free(input);
+    input = NULL;
 }
 
 int isLetter(char character) {
