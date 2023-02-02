@@ -35,9 +35,14 @@ struct node *insert_at_tail(int x, struct node *list);
 // Ansonsten gibt sie eine -1 zurueck.
 char search(int e, struct node *l);
 
+struct node *remove_at_head(struct node *list);
+
+struct node *remove_at_tail(struct node *list);
+
 int main() {
 	// my_list ist ein Zeiger auf struct node. Urspruenglich NULL, Liste ist leer
 	struct node *my_list = NULL;
+
 
 	// Die Zahl 3 in die Liste hinzufuegen. Den zurueckgelieferten Zeiger 
 	// der my_list zuweisen, d.h., my_list zeigt danach zum Knoten mit der Zahl
@@ -55,14 +60,32 @@ int main() {
 	my_list = insert_at_head(99, my_list);
 	// Jetzt ist 99 am Listenkopf!
 
-	// Die Listenelemente anzeigen
+    my_list = insert_at_tail(321, my_list);
+
+    display_list(my_list);
+
+    my_list = remove_at_tail(my_list);
+    my_list = remove_at_tail(my_list);
+    my_list = remove_at_tail(my_list);
+    my_list = remove_at_tail(my_list);
+    my_list = remove_at_tail(my_list);
+    my_list = remove_at_tail(my_list);
+    my_list = remove_at_tail(my_list);
+
+
+// Die Listenelemente anzeigen
 	display_list(my_list);
 
-  int s = search(15, my_list);
-  if (s == -1) 
-    printf("Das Element wurde nicht gefunden\n");
-  else
-    printf("Das Element wurde gefunden an der Stelle %d\n", s);
+	int s = search(15, my_list);
+
+	if (s == -1) {
+		printf("Das Element wurde nicht gefunden\n");
+	}
+	else {
+		printf("Das Element wurde gefunden an der Stelle %d\n", s);
+	}
+
+	printf("Sum of elements = %d\n", sum_up_elements(my_list));
 
 	return(0);
 }	
@@ -107,14 +130,74 @@ void display_list(struct node *z) {
 	printf("\n");
 }
 
-// TODO:
 int sum_up_elements(struct node *z) {
-	// ...
-  return(-1);
+	int sum = 0;
+
+	while (z != NULL) {
+		sum += z->number;
+		z = z->next;
+	}
+	return sum;
 }
 
-// TODO:
 struct node *insert_at_tail(int x, struct node *list) {
-  // ...
-  return(NULL);
+	struct node *new_node = malloc(sizeof(struct node));
+    struct node *node_at_tail = list;
+
+    // catch memory allocation fail
+    if (new_node == NULL) {
+        printf("Fehler bei der Speicherallokation\n");
+        return(NULL);
+    }
+
+    // insert at end of empty list
+    if (list == NULL) {
+        new_node->next = list;
+        new_node->number = x;
+        return new_node;
+    }
+
+    // insert at the end
+	while (node_at_tail->next != NULL) {
+        node_at_tail = node_at_tail->next;
+    }
+
+    new_node->number = x;
+    node_at_tail->next = new_node;
+
+    return list;
+}
+
+struct node *remove_at_head(struct node *list) {
+    // empty list
+    if (list == NULL) {
+        return NULL;
+    }
+
+    // list with at least one element
+    struct node *second_node = list->next;
+    free(list);
+    return second_node;
+}
+
+struct node *remove_at_tail(struct node *list) {
+    if (list == NULL) {
+        return NULL;
+    }
+    struct node *node_at_tail = list;
+    struct node *second_to_last_node = list->next;
+
+    if (second_to_last_node == NULL) {
+        free(list);
+        return(NULL);
+    }
+
+    while (node_at_tail->next != NULL) {
+        second_to_last_node = node_at_tail;
+        node_at_tail = node_at_tail->next;
+    }
+
+    second_to_last_node->next = NULL;
+    free(node_at_tail);
+    return list;
 }
