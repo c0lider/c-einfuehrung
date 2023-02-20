@@ -11,7 +11,7 @@ int main() {
     int userInput = 0;
 
     while (userInput < 3 || userInput > 40) {
-        printf("Bitte eine Ganzzahl n eingeben (3 <= n <= 40: ");
+        printf("Bitte eine Ganzzahl n eingeben (3 <= n <= 40): ");
         scanf(" %d", &userInput);
     }
 
