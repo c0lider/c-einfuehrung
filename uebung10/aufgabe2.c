@@ -9,7 +9,7 @@ int get_int_from_input(int groesserNull) {
     while (1) {
         result = scanf("%d", &number);
         
-        // necessary for whatever reason
+        // scanf() reads up to the whitespace but not the whitespace itself, this clears the whitespace from the input stream
         getchar();
 
         if (result != 1) {
